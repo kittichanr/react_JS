@@ -2,12 +2,13 @@ import React from "react"
 import "./App.css"
 import request from "./requests"
 import Row from "./Components/Row"
+import Banner from "./Components/Banner"
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       {/* { Nav } */}
-      {/* { Banner } */}
+      <Banner />
       <Row
         title="NETFLIX ORIGINALS"
         fetchUrl={request.fetchNetflixOriginals}
