@@ -13,11 +13,13 @@ import FileCopyIcon from "@material-ui/icons/FileCopy"
 import ExpandLessIcon from "@material-ui/icons/ExpandLess"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import AddIcon from "@material-ui/icons/Add"
+import { useStateValue } from "../../contextAPI/StateProvider"
 
 import db from "../../api/firebase"
 
 const Sidebar = () => {
   const [channels, setChannels] = useState([])
+  const [{ user }] = useStateValue()
 
   useEffect(() => {
     db.collection("rooms").onSnapshot((snapshot) => {
@@ -38,7 +40,7 @@ const Sidebar = () => {
           <h2>React JS Slack</h2>
           <h3>
             <FiberManualRecordIcon />
-            Kittichan
+            {user?.displayName}
           </h3>
         </div>
         <CreateIcon />
@@ -52,11 +54,11 @@ const Sidebar = () => {
       <SidebarOption Icon={FileCopyIcon} title="File browser" />
       <SidebarOption Icon={ExpandLessIcon} title="Show less" />
       <hr />
-      <SidebarOption Icon={ExpandMoreIcon} title="Channels"/>
+      <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
       <hr />
-      <SidebarOption Icon={AddIcon} title="Add Channel" addChanelOption/>
+      <SidebarOption Icon={AddIcon} title="Add Channel" addChanelOption />
       {channels.map((channel) => (
-        <SidebarOption title={channel.name} id={channel.id}/>
+        <SidebarOption title={channel.name} id={channel.id} />
       ))}
     </div>
   )
