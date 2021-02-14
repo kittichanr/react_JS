@@ -10,10 +10,17 @@ const Pallete = ({ palette }) => {
     <ColorBox background={color.hex} name={color.name} />
   ))
   const changeLevel = (level) => setLevel(level)
-  console.log(level);
   return (
     <div className="Pallete">
-      <Slider defaultValue={level} min={100} max={900} step={100} onAfterChange={changeLevel}/>
+      <div className="slider">
+        <Slider
+          defaultValue={level}
+          min={100}
+          max={900}
+          step={100}
+          onAfterChange={changeLevel}
+        />
+      </div>
       <div className="Pallete-colors">{colorBoxes}</div>
     </div>
   )
