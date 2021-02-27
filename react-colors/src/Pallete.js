@@ -5,13 +5,21 @@ import Navbar from "./Navbar"
 
 const Pallete = ({ palette }) => {
   const [level, setLevel] = useState(500)
+  const [format, setFormat] = useState('hex')
+
   const colorBoxes = palette.colors[level].map((color) => (
-    <ColorBox background={color.hex} name={color.name} />
+    <ColorBox background={color[format]} name={color.name} />
   ))
+
   const changeLevel = (level) => setLevel(level)
+
+  const changeFormat = (value) => {
+    setFormat(value)
+  }
+
   return (
     <div className="Pallete">
-      <Navbar level={level} changeLevel={changeLevel}/>
+      <Navbar level={level} changeLevel={changeLevel} handleChange={changeFormat}/>
       <div className="Pallete-colors">{colorBoxes}</div>
     </div>
   )
