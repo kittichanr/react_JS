@@ -3,7 +3,7 @@ import ColorBox from "./ColorBox"
 import "./Pallete.css"
 import Navbar from "./Navbar"
 
-const Pallete = ({ palette, paletteName, emoji }) => {
+const Pallete = ({ palette }) => {
   const [level, setLevel] = useState(500)
   const [format, setFormat] = useState("hex")
 
