@@ -34,7 +34,7 @@ const SingleColorPalette = ({ palette, colorId }) => {
       name={color.name}
       id={color.id}
       background={color[format]}
-      showLink={false}
+      showingFullPalette={false}
     />
   ))
 
