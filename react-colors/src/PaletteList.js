@@ -1,7 +1,7 @@
 import React from "react"
 import MiniPalette from "./Components/MiniPalette"
 import { withStyles } from "@material-ui/styles"
-import { Link } from "react-router-dom"
+
 const styles = {
   root: {
     backgroundColor: "blue",
