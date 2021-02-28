@@ -8,7 +8,14 @@ const Pallete = ({ palette }) => {
   const [format, setFormat] = useState("hex")
 
   const colorBoxes = palette.colors[level].map((color) => (
-    <ColorBox background={color[format]} name={color.name} key={color.id}/>
+    <ColorBox
+      background={color[format]}
+      name={color.name}
+      key={color.id}
+      id={color.id}
+      paletteId={palette.id}
+      moreUrl={`palette/${palette.id}/${color.id}`}
+    />
   ))
 
   const changeLevel = (level) => setLevel(level)
