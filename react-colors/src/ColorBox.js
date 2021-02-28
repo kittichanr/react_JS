@@ -3,7 +3,7 @@ import "./ColorBox.css"
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import { Link, withRouter } from "react-router-dom"
 
-const ColorBox = ({ background, name, id, paletteId, moreUrl }) => {
+const ColorBox = ({ background, name, moreUrl, showLink = true }) => {
   const [copied, setCopied] = useState(false)
   const onCopy = () => {
     setCopied(true)
@@ -28,9 +28,11 @@ const ColorBox = ({ background, name, id, paletteId, moreUrl }) => {
           </div>
           <button className="copy-button">Copy</button>
         </div>
-        <Link to={moreUrl} onClick={(e) => e.stopPropagation()}>
-          <span className="see-more">More</span>
-        </Link>
+        {showLink && (
+          <Link to={moreUrl} onClick={(e) => e.stopPropagation()}>
+            <span className="see-more">More</span>
+          </Link>
+        )}
       </div>
     </CopyToClipboard>
   )

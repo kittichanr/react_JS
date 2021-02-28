@@ -12,9 +12,7 @@ const Pallete = ({ palette }) => {
       background={color[format]}
       name={color.name}
       key={color.id}
-      id={color.id}
-      paletteId={palette.id}
-      moreUrl={`palette/${palette.id}/${color.id}`}
+      moreUrl={`/palette/${palette.id}/${color.id}`}
     />
   ))
 

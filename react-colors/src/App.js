@@ -28,7 +28,12 @@ function App() {
       <Route
         exact
         path="/palette/:paletteId/:colorId"
-        render={() => <SingleColorPalette />}
+        render={({ match }) => (
+          <SingleColorPalette
+            colorId={match.params.colorId}
+            palette={generatePallete(findPalette(match.params.paletteId))}
+          />
+        )}
       />
     </Switch>
   )
