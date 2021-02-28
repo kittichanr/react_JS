@@ -1,8 +1,18 @@
-import React from "react"
+import React, { useState } from "react"
 import ColorBox from "./ColorBox"
 import "./Pallete.css"
+import Navbar from "./Navbar"
+import PaletteFooter from "./Components/PaletteFooter"
 
 const SingleColorPalette = ({ palette, colorId }) => {
+  const [level, setLevel] = useState(500)
+  const [format, setFormat] = useState("hex")
+
+  const changeLevel = (level) => setLevel(level)
+
+  const changeFormat = (value) => {
+    setFormat(value)
+  }
   const gatherShades = () => {
     let shades = []
     let allColors = palette.colors
@@ -21,14 +31,21 @@ const SingleColorPalette = ({ palette, colorId }) => {
       key={color.id}
       name={color.name}
       id={color.id}
-      background={color.hex}
+      background={color[format]}
       showLink={false}
     />
   ))
 
   return (
     <div className="Pallete">
+      <Navbar
+        level={level}
+        changeLevel={changeLevel}
+        handleChange={changeFormat}
+        showingAllColors={false}
+      />
       <div className="Pallete-colors">{colorBoxes}</div>
+      <PaletteFooter palette={palette} />
     </div>
   )
 }
