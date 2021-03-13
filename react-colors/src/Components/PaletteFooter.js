@@ -1,5 +1,6 @@
 import React from "react"
-import "../Pallete.css"
+import { withStyles } from "@material-ui/styles"
+import styles from "../styles/PaletteFooterStyles"
 
 const PaletteFooter = ({ palette }) => {
   return (
@@ -10,4 +11,4 @@ const PaletteFooter = ({ palette }) => {
   )
 }
 
-export default PaletteFooter
+export default withStyles(styles)(PaletteFooter)

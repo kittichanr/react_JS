@@ -1,22 +1,11 @@
 import React, { useState } from "react"
 import ColorBox from "./ColorBox"
-import "./Pallete.css"
 import Navbar from "./Navbar"
 import PaletteFooter from "./Components/PaletteFooter"
 import { withStyles } from "@material-ui/styles"
+import styles from "../src/styles/PaletteStyles"
 
-const styles = {
-  Pallete:{
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-  },
-  colors:{
-    height: "90%"
-  }
-}
-
-const Pallete = ({ palette,classes }) => {
+const Pallete = ({ palette, classes }) => {
   const [level, setLevel] = useState(500)
   const [format, setFormat] = useState("hex")
 
