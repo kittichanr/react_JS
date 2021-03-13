@@ -3,8 +3,20 @@ import ColorBox from "./ColorBox"
 import "./Pallete.css"
 import Navbar from "./Navbar"
 import PaletteFooter from "./Components/PaletteFooter"
+import { withStyles } from "@material-ui/styles"
 
-const Pallete = ({ palette }) => {
+const styles = {
+  Pallete:{
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+  },
+  colors:{
+    height: "90%"
+  }
+}
+
+const Pallete = ({ palette,classes }) => {
   const [level, setLevel] = useState(500)
   const [format, setFormat] = useState("hex")
 
@@ -25,16 +37,16 @@ const Pallete = ({ palette }) => {
   }
 
   return (
-    <div className="Pallete">
+    <div className={classes.Pallete}>
       <Navbar
         level={level}
         changeLevel={changeLevel}
         handleChange={changeFormat}
       />
-      <div className="Pallete-colors">{colorBoxes}</div>
+      <div className={classes.colors}>{colorBoxes}</div>
       <PaletteFooter palette={palette} />
     </div>
   )
 }
 
-export default Pallete
+export default withStyles(styles)(Pallete)
