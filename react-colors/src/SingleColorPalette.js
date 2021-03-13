@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import ColorBox from "./ColorBox"
-import "./ColorBox.css"
 import Navbar from "./Navbar"
 import PaletteFooter from "./Components/PaletteFooter"
 import { Link } from "react-router-dom"
