@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React from "react"
 import clsx from "clsx"
 import {
   makeStyles,
@@ -83,19 +83,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const NewPaletteForm = ({ savePalette, history }) => {
+const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const classes = useStyles()
   const theme = useTheme()
 
   const [open, setOpen] = React.useState(false)
   const [colors, setColors] = React.useState([{ color: "blue", name: "blue" }])
   const [currentColor, setCurrentColor] = React.useState("teal")
-  const [newName, setNewName] = React.useState("")
+  const [inputValues, setInputValues] = React.useState({
+    newColorName: '',
+    newPaletteName: ''
+  })
 
   React.useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", (value) => {
       return colors.every(
-        ({ name }) => name.toLowerCase() !== value.toLowerCase()
+        ({ name }) => name?.toLowerCase() !== value?.toLowerCase()
       )
     })
     ValidatorForm.addValidationRule("isColorUnique", (value) => {
@@ -103,17 +106,24 @@ const NewPaletteForm = ({ savePalette, history }) => {
         ({ color }) => color !== currentColor
       )
     })
-  }, [colors, currentColor])
+    ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
+      return palettes.every(
+        ({ paletteName }) => paletteName?.toLowerCase() !== value?.toLowerCase()
+      )
+    })
+  }, [colors, currentColor, palettes])
 
   const addNewColor = () => {
     const newColor = {
       color: currentColor,
-      name: newName,
+      name: inputValues.newColorName,
     }
     setColors([...colors, newColor])
   }
 
-  const handleChange = (event) => setNewName(event.target.value)
+  const handleChange = (event) => {
+    setInputValues({ [event.target.name]: event.target.value })
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -124,7 +134,7 @@ const NewPaletteForm = ({ savePalette, history }) => {
   }
 
   const handleSubmit = () => {
-    let newName = 'New Test Palette'
+    let newName = inputValues.newPaletteName
     const newPalette = {
       paletteName: newName,
       id: newName.toLowerCase().replace(/ /g, '-'),
@@ -159,7 +169,22 @@ const NewPaletteForm = ({ savePalette, history }) => {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
-          <Button variant='contained' color='secondary' onClick={handleSubmit}>Save Pallete</Button>
+          <ValidatorForm onSubmit={handleSubmit}>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <TextValidator
+                label='Palette Name'
+                name='newPaletteName'
+                value={inputValues.newPaletteName}
+                onChange={handleChange}
+                validators={["required", 'isPaletteNameUnique']}
+                errorMessages={[
+                  "Enter Palette Name",
+                  "Palette name must be unique"
+                ]}
+              />
+              <Button variant='contained' color='secondary' type='submit '>Save Pallete</Button>
+            </div>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -194,9 +219,10 @@ const NewPaletteForm = ({ savePalette, history }) => {
           color={currentColor}
           onChangeComplete={(newColor) => setCurrentColor(newColor.hex)}
         />
-        <ValidatorForm onSubmit={addNewColor}>
+        <ValidatorForm onSubmit={addNewColor} va>
           <TextValidator
-            value={newName}
+            value={inputValues.newColorName}
+            name='newColorName'
             onChange={handleChange}
             validators={["required", "isColorNameUnique", "isColorUnique"]}
             errorMessages={[
