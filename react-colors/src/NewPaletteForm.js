@@ -174,7 +174,7 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
               <TextValidator
                 label='Palette Name'
                 name='newPaletteName'
-                value={inputValues.newPaletteName}
+                value={inputValues.newPaletteName || ''}
                 onChange={handleChange}
                 validators={["required", 'isPaletteNameUnique']}
                 errorMessages={[
@@ -221,7 +221,7 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
         />
         <ValidatorForm onSubmit={addNewColor} va>
           <TextValidator
-            value={inputValues.newColorName}
+            value={inputValues.newColorName || ''}
             name='newColorName'
             onChange={handleChange}
             validators={["required", "isColorNameUnique", "isColorUnique"]}
