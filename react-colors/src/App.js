@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import "./App.css"
 import Pallete from "./Pallete"
 import seedColors from "./seedColors"
@@ -10,13 +10,24 @@ import { Route, Switch } from "react-router-dom"
 
 function App() {
 
-  const [palettes, setPalettes] = useState(seedColors)
+  const savePalettes = JSON.parse(window.localStorage.getItem('palettes'))
+  const [palettes, setPalettes] = useState(savePalettes || seedColors)
 
   const findPalette = (id) => palettes.find((palette) => palette.id === id)
 
-  const savePalette = (newPalette) => {
+  const savePalette = useCallback((newPalette) => {
     setPalettes([...palettes, newPalette])
-  }
+  },[palettes])
+
+  useEffect(() => {
+    syncLocalStorage()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [palettes])
+
+  const syncLocalStorage = useCallback(
+    () => window.localStorage.setItem('palettes', JSON.stringify(palettes)
+    ), [palettes])
+
   return (
     <Switch>
       <Route
