@@ -1,11 +1,6 @@
 import React from "react"
 import clsx from "clsx"
-import {
-  makeStyles,
-  useTheme,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles"
+import { useTheme } from "@material-ui/core/styles"
 import Drawer from "@material-ui/core/Drawer"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
@@ -43,7 +38,7 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColor = 20 }) => {
   const handleSubmit = (newPalette) => {
     newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, '-')
     newPalette.colors = colors
-   
+
     savePalette(newPalette)
     history.push('/')
   }
