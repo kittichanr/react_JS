@@ -60,6 +60,7 @@ const PaletteFormNav = ({ open, palettes, handleSubmit, handleDrawerOpen }) => {
     const [fromShowing, setFromShowing] = useState(false)
 
     const showForm = () => setFromShowing(true)
+    const hideForm = () => setFromShowing(false)
 
     return (
         <div className={classes.root}>
@@ -88,7 +89,7 @@ const PaletteFormNav = ({ open, palettes, handleSubmit, handleDrawerOpen }) => {
                     <Button className={classes.button} variant="contained" color="primary" onClick={showForm}>Save</Button>
                 </div>
             </AppBar>
-            {fromShowing && <PaletteMetaForm palettes={palettes} handleSubmit={handleSubmit} />}
+            {fromShowing && <PaletteMetaForm palettes={palettes} handleSubmit={handleSubmit} hideForm={hideForm}/>}
         </div>
     )
 }
