@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/styles"
 import styles from "./styles/PaletteListStyles"
 import { Link } from "react-router-dom"
 
-const PaletteList = ({ classes, palettes, history }) => {
+const PaletteList = ({ classes, palettes, history, deletePalette }) => {
   const handleClick = (id) => history.push(`/palette/${id}`)
 
   return (
@@ -19,7 +19,10 @@ const PaletteList = ({ classes, palettes, history }) => {
             return (
               <MiniPalette
                 {...palette}
+                handleDelete={deletePalette}
                 onClick={() => handleClick(palette.id)}
+                key={palette.id}
+                id={palette.id}
               />
             )
           })}

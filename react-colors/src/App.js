@@ -17,11 +17,13 @@ function App() {
 
   const savePalette = useCallback((newPalette) => {
     setPalettes([...palettes, newPalette])
-  },[palettes])
+  }, [palettes])
+
+  const deletePalette = (id) => setPalettes(palettes.filter(palette => palette.id !== id))
 
   useEffect(() => {
     syncLocalStorage()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [palettes])
 
   const syncLocalStorage = useCallback(
@@ -40,7 +42,7 @@ function App() {
         exact
         path="/"
         render={(routeProps) => (
-          <PaletteList palettes={palettes} {...routeProps} />
+          <PaletteList palettes={palettes} deletePalette={deletePalette} {...routeProps} />
         )}
       />
       <Route
