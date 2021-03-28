@@ -1,5 +1,5 @@
 import chroma from "chroma-js"
-
+import size from './size'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -14,6 +14,18 @@ export default {
     "&:hover button": {
       opacity: "1",
       transition: "0.5s",
+    },
+    [size.down('lg')]: {
+      width: '25%',
+      height: (props) => (props.showingFullPalette ? "20%" : "50%"),
+    },
+    [size.down('md')]: {
+      width: '50%',
+      height: (props) => (props.showingFullPalette ? "10%" : "50%"),
+    },
+    [size.down('xs')]: {
+      width: '100%',
+      height: (props) => (props.showingFullPalette ? "5%" : "10%"),
     },
   },
   copyText: {
