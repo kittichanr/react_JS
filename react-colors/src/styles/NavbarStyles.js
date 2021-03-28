@@ -1,3 +1,5 @@
+import size from './size'
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     Navbar: {
@@ -19,6 +21,9 @@ export default {
           textDecoration: "none",
           color: "black",
         },
+        [size.down('xs')]:{
+          display: 'none'
+        }
       },
     
       slider: {
@@ -41,6 +46,9 @@ export default {
           marginLeft: "-7px",
           marginTop: "-3px",
         },
+        [size.down('xs')]:{
+          width: '150px'
+        }
       },
     
       selectContainer: {

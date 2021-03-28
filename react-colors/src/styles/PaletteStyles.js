@@ -1,4 +1,4 @@
-
+import size from './size'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -39,5 +39,17 @@ export default {
           border: "none",
           textDecoration: "none",
         },
+        [size.down('lg')]:{
+          width: '25%',
+          height: '33.3333%'
+        },
+        [size.down('md')]:{
+          width: '50%',
+          height: '20%'
+        },
+        [size.down('xs')]:{
+          width: '100%',
+          height: '10%'
+        }
       },
 }

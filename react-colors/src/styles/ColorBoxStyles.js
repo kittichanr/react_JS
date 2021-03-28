@@ -10,14 +10,14 @@ export default {
     position: "relative",
     display: "inline-block",
     cursor: "pointer",
-    marginBottom: "-0.35px",
+    marginBottom: "-3px",
     "&:hover button": {
       opacity: "1",
       transition: "0.5s",
     },
     [size.down('lg')]: {
       width: '25%',
-      height: (props) => (props.showingFullPalette ? "20%" : "50%"),
+      height: (props) => (props.showingFullPalette ? "20%" : "33.3333%"),
     },
     [size.down('md')]: {
       width: '50%',
@@ -119,6 +119,9 @@ export default {
       marginBottom: "0",
       padding: "1rem",
       textTransform: "uppercase",
+      [size.down('xs')]:{
+        fontSize: "5rem",
+      }
     },
     "& p": {
       fontSize: "2rem",

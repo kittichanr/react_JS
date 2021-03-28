@@ -4,6 +4,7 @@ import {
     createStyles,
 } from "@material-ui/core/styles"
 import { DRAWER_WIDTH } from '../constants'
+import size from './size'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,10 +38,17 @@ const useStyles = makeStyles((theme: Theme) =>
             marginRight: '1rem',
             '& a': {
                 textDecoration: 'none',
-            }
+            },
+            [size.down('xs')]: {
+                marginRight: '0.5rem',
+            },
         },
         button: {
             margin: '0 0.5rem',
+            [size.down('xs')]: {
+                margin: '0.02rem',
+                padding: '0.3rem',
+            },
         },
     })
 )
