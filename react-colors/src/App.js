@@ -8,6 +8,7 @@ import NewPaletteForm from "./NewPaletteForm"
 import { generatePallete } from "./colorHelpers"
 import { Route, Switch } from "react-router-dom"
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import Page from './Components/Page'
 
 function App() {
 
@@ -34,51 +35,51 @@ function App() {
   return (
     <Route render={({ location }) => (
       <TransitionGroup>
-        <CSSTransition key={location.key} classNames='fade' timeout={500}>
+        <CSSTransition key={location.key} classNames='page' timeout={500}>
           <Switch location={location}>
             <Route
               exact
               path="/palette/new"
               render={(routeProps) => (
-                <div className="page">
+                <Page>
                   <NewPaletteForm
                     {...routeProps}
                     palettes={palettes}
-                    avePalette={savePalette} />
-                </div>
+                    savePalette={savePalette} />
+                </Page>
               )}
             />
             <Route
               exact
               path="/"
               render={(routeProps) => (
-                <div className="page">
+                <Page>
                   <PaletteList
                     palettes={palettes}
                     deletePalette={deletePalette}
                     {...routeProps} />
-                </div>
+                </Page>
               )}
             />
             <Route
               exact
               path="/palette/:id"
               render={({ match }) => (
-                <div className="page">
+                <Page>
                   <Pallete palette={generatePallete(findPalette(match.params.id))} />
-                </div>
+                </Page>
               )}
             />
             <Route
               exact
               path="/palette/:paletteId/:colorId"
               render={({ match }) => (
-                <div className="page">
+                <Page>
                   <SingleColorPalette
                     colorId={match.params.colorId}
                     palette={generatePallete(findPalette(match.params.paletteId))}
                   />
-                </div>
+                </Page>
               )}
             />
           </Switch>
