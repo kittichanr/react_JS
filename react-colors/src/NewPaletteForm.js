@@ -113,6 +113,7 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColor = 20 }) => {
       >
         <div className={classes.drawerHeader} />
         <DraggableColorList
+          distance={20}
           axis='xy'
           onSortEnd={onSortEnd}
           colors={colors}

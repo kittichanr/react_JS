@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/styles"
 import styles from "../styles/MiniPaletteStyles"
 import DeleteIcon from '@material-ui/icons/Delete'
 
-function MiniPalette({ classes, paletteName, emoji, colors, onClick, handleDelete, id }) {
+function MiniPalette({ classes, paletteName, emoji, colors, onClick, openDialog, id }) {
   const miniColorBoxes = colors.map((color) => (
     <div
       key={color.name}
@@ -14,7 +14,7 @@ function MiniPalette({ classes, paletteName, emoji, colors, onClick, handleDelet
 
   const deletePalette = (e) => {
     e.stopPropagation()
-    handleDelete(id)
+    openDialog(id)
   }
 
   return (
