@@ -1,9 +1,9 @@
-import React from "react"
+import React, { memo, useCallback } from "react"
 import { withStyles } from "@material-ui/styles"
 import styles from "../styles/MiniPaletteStyles"
 import DeleteIcon from '@material-ui/icons/Delete'
 
-function MiniPalette({ classes, paletteName, emoji, colors, onClick, openDialog, id }) {
+function MiniPalette({ classes, paletteName, emoji, colors, goToPallete, openDialog, id }) {
   const miniColorBoxes = colors.map((color) => (
     <div
       key={color.name}
@@ -12,13 +12,15 @@ function MiniPalette({ classes, paletteName, emoji, colors, onClick, openDialog,
     />
   ))
 
-  const deletePalette = (e) => {
+  const deletePalette = useCallback((e) => {
     e.stopPropagation()
     openDialog(id)
-  }
+  }, [id, openDialog])
+
+  const handleClick = useCallback(() => goToPallete(id), [goToPallete, id])
 
   return (
-    <div className={classes.root} onClick={onClick}>
+    <div className={classes.root} onClick={handleClick}>
       <DeleteIcon
         className={classes.deleteIcon}
         style={{ transition: 'all 0.3s ease-in-out' }}
@@ -32,4 +34,4 @@ function MiniPalette({ classes, paletteName, emoji, colors, onClick, openDialog,
   )
 }
 
-export default withStyles(styles)(MiniPalette)
+export default withStyles(styles)(memo(MiniPalette))

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState,useCallback } from "react"
 import MiniPalette from "./Components/MiniPalette"
 import { withStyles } from "@material-ui/styles"
 import styles from "./styles/PaletteListStyles"
@@ -16,24 +16,25 @@ import { blue, red } from "@material-ui/core/colors"
 
 
 const PaletteList = ({ classes, palettes, history, deletePalette }) => {
-  const handleClick = (id) => history.push(`/palette/${id}`)
+  const goToPallete = (id) => history.push(`/palette/${id}`)
 
   const [open, setOpen] = useState(false)
   const [deleteId, setDeleteId] = useState(false)
 
-  const openDialog = (id) => {
+  const openDialog = useCallback((id) => {
     setDeleteId(id)
     setOpen(true)
-  }
-  const closeDialog = () => {
+  },[])
+
+  const closeDialog = useCallback(() => {
     setDeleteId('')
     setOpen(false)
-  }
+  },[])
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     deletePalette(deleteId)
     closeDialog()
-  }
+  },[closeDialog, deleteId, deletePalette])
 
   return (
     <div className={classes.root}>
@@ -49,7 +50,7 @@ const PaletteList = ({ classes, palettes, history, deletePalette }) => {
                 <MiniPalette
                   {...palette}
                   openDialog={openDialog}
-                  onClick={() => handleClick(palette.id)}
+                  goToPallete={goToPallete}
                   key={palette.id}
                   id={palette.id}
                 />
