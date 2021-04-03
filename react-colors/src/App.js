@@ -13,7 +13,7 @@ import Page from './Components/Page'
 function App() {
 
   const savePalettes = JSON.parse(window.localStorage.getItem('palettes'))
-  const [palettes, setPalettes] = useState(savePalettes || seedColors)
+  const [palettes, setPalettes] = useState(savePalettes.length < 1 ? savePalettes : seedColors)
 
   const findPalette = (id) => palettes.find((palette) => palette.id === id)
 
@@ -79,6 +79,16 @@ function App() {
                     colorId={match.params.colorId}
                     palette={generatePallete(findPalette(match.params.paletteId))}
                   />
+                </Page>
+              )}
+            />
+            <Route
+              render={(routeProps) => (
+                <Page>
+                  <PaletteList
+                    palettes={palettes}
+                    deletePalette={deletePalette}
+                    {...routeProps} />
                 </Page>
               )}
             />

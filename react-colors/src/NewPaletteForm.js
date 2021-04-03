@@ -13,13 +13,14 @@ import { arrayMove } from 'react-sortable-hoc'
 import PaletteFormNav from './Components/PaletteFormNav'
 import ColorPickerForm from './Components/ColorPickerForm'
 import useStyles from './styles/NewPaletteFormStyles'
+import seedColors from './seedColors'
 
 const NewPaletteForm = ({ savePalette, history, palettes, maxColor = 20 }) => {
   const classes = useStyles()
   const theme = useTheme()
 
   const [open, setOpen] = React.useState(false)
-  const [colors, setColors] = React.useState(palettes[0].colors)
+  const [colors, setColors] = React.useState(seedColors[0].colors)
 
   const isPaletteFull = colors.length >= maxColor
 
@@ -57,8 +58,15 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColor = 20 }) => {
     const allColors = palettes.map(palette => {
       return palette.colors
     }).flat()
-    const rand = Math.floor(Math.random() * allColors.length)
-    const randomColor = allColors[rand]
+    let rand
+    let randomColor
+    let isDuplicateColor = true
+    while (isDuplicateColor) {
+      rand = Math.floor(Math.random() * allColors.length)
+      randomColor = allColors[rand]
+      console.log(allColors);
+      isDuplicateColor = colors.some(color => color.name === randomColor)
+    }
     setColors([...colors, randomColor])
   }
 
