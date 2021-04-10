@@ -1,4 +1,5 @@
 import './App.css';
+import LanguageProvider from './contexts/LanguageContext';
 import ThemeProvider from './contexts/ThemeContext';
 import Form from './Form';
 import Navbar from './Navbar';
@@ -8,8 +9,10 @@ function App() {
   return (
     <ThemeProvider>
       <PageContent>
-        <Navbar />
-        <Form />
+        <LanguageProvider>
+          <Navbar />
+          <Form />
+        </LanguageProvider>
       </PageContent>
     </ThemeProvider>
   );
