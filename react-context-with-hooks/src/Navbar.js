@@ -8,17 +8,35 @@ import InputBase from '@material-ui/core/InputBase';
 import Searchcon from '@material-ui/icons/Search';
 import useStyles from './styles/navBarStyles'
 import { ThemeContext } from './contexts/ThemeContext'
+import { LanguageContext } from './contexts/LanguageContext'
 
-const Navbar = () => {
+const content = {
+    english: {
+        search: "Search",
+        flag: "🇬🇧"
+    },
+    french: {
+        search: "Chercher",
+        flag: "🇫🇷"
+    },
+    spanish: {
+        search: "Buscar",
+        flag: "🇪🇸"
+    }
+};
+
+const Navbar = ({ languageContext }) => {
     const classes = useStyles()
     const { isDarkMode, changeTheme } = useContext(ThemeContext)
+    const { language } = useContext(LanguageContext)
+    const { search, flag } = content[language];
 
     return (
         <div className={classes.root}>
             <AppBar position='static' color={isDarkMode ? 'inherit' : 'primary'}>
                 <Toolbar >
                     <IconButton className={classes.menuButton} color='inherit'>
-                        <span>😍</span>
+                        <span>{flag}</span>
                     </IconButton>
                     <Typography className={classes.title} variant='h6' color='inherit'>
                         App Title
@@ -30,7 +48,7 @@ const Navbar = () => {
                             <Searchcon />
                         </div>
                         <InputBase
-                            placeholder='Search....'
+                            placeholder={search}
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput
