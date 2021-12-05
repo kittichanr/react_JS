@@ -9,13 +9,13 @@ async function refreshAccessToken(token) {
 
         const { body: refreshedToken } = await spotifyWebApi.refreshAccessToken()
         console.log('REFRESHED_TOKEN', refreshedToken);
-    
+
         return {
             ...token,
             accessToken: refreshedToken,
             refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
             accessTokenExpires: Date.now + refreshedToken.expires_in * 1000,
-        } 
+        }
     } catch (error) {
         return {
             ...token,
@@ -39,7 +39,7 @@ export default NextAuth({
         signIn: '/login',
     },
     callbacks: {
-        async jwt(token, account, user) {
+        async jwt({ token, account, user }) {
             // Initial sign in
             if (account && user) {
                 return {
@@ -58,14 +58,14 @@ export default NextAuth({
 
             //Access token has expired, so we need to refresh it...
             console.log('ACCESS TOKEN HAS EXPIRED');
-            return await refreshAccessToken(token.refreshToken)
+            return await refreshAccessToken(token)
+        },
+        async session({ session, token }) {
+            session.user.accessToken = token.accessToken
+            session.user.refreshToken = token.refreshToken
+            session.user.username = token.username
+
+            return session
         }
     },
-    async session(session, token) {
-        session.user.accessToken = token.accessToken
-        session.user.refreshToken = token.refreshToken
-        session.user.username = token.username
-
-        return session
-    }
 })
