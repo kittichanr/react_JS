@@ -5,16 +5,16 @@ import spotifyWebApi, { LOGIN_URL } from "../../../lib/spotify"
 async function refreshAccessToken(token) {
     try {
         spotifyWebApi.setAccessToken(token.accessToken)
-        spotifyWebApi.setAccessToken(token.refreshToken)
+        spotifyWebApi.setRefreshToken(token.refreshToken)
 
         const { body: refreshedToken } = await spotifyWebApi.refreshAccessToken()
         console.log('REFRESHED_TOKEN', refreshedToken);
 
         return {
             ...token,
-            accessToken: refreshedToken,
+            accessToken: refreshedToken.access_token,
+            accessTokenExpires: Date.now() + refreshedToken.expires_in * 1000,
             refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
-            accessTokenExpires: Date.now + refreshedToken.expires_in * 1000,
         }
     } catch (error) {
         return {
@@ -30,7 +30,7 @@ export default NextAuth({
         SpotifyProvider({
             clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
             clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
-            authorization: LOGIN_URL
+            authorization: LOGIN_URL,
         }),
         // ...add more providers here
     ],
@@ -39,7 +39,7 @@ export default NextAuth({
         signIn: '/login',
     },
     callbacks: {
-        async jwt({ token, account, user }) {
+        async jwt({token, user, account}) {
             // Initial sign in
             if (account && user) {
                 return {
@@ -61,9 +61,13 @@ export default NextAuth({
             return await refreshAccessToken(token)
         },
         async session({ session, token }) {
-            session.user.accessToken = token.accessToken
-            session.user.refreshToken = token.refreshToken
-            session.user.username = token.username
+            if (token) {
+                session.accessToken = token.accessToken
+                session.refreshToken = token.refreshToken
+                session.user.name = token.name
+                session.user.email = token.email
+                session.user.image = token.picture
+            }
 
             return session
         }
