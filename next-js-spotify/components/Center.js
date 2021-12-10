@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import { shuffle } from 'lodash';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -38,12 +38,12 @@ function Center() {
     console.log(playlists);
 
     return (
-        <div className="flex-grow">
+        <div className="flex-grow h-screen overflow-y-scroll">
             <header className="absolute top-5 right-8">
                 <div className="
                 flex items-center bg-black text-white
                 space-x-3 opacity-90 hover:opacity-80 
-                cursor-pointer rounded-full p-1 pr-2">
+                cursor-pointer rounded-full p-1 pr-2" onClick={signOut}>
                     <img
                         className="rounded-full w-10 h-10"
                         src='https://cdn-icons-png.flaticon.com/128/149/149071.png'
